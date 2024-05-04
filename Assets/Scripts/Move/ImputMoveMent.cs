@@ -7,9 +7,9 @@ public class ImputMoveMent : MoveMent
 {
     [SerializeField] float moveInput;
     [SerializeField] float jumpPower;
+
     [SerializeField] bool isJump;
     [SerializeField] protected bool isRun;
-
     [SerializeField] private bool isGround;
     public bool IsGround { get => isGround; set => isGround = value; }
 
@@ -49,6 +49,8 @@ public class ImputMoveMent : MoveMent
 
     void Jump()
     {
+        Debug.Log("Jump");
+
         animator.SetTrigger("isJump");
 
         rigid.velocity = new Vector3(rigid.velocity.x, 0);
@@ -89,10 +91,11 @@ public class ImputMoveMent : MoveMent
             animator.SetBool("Run", isRun);
     }
 
-    
-
-    
-
+    void Grounding(bool isGround)
+    {
+        this.isGround = isGround;
+        animator.SetBool("isGround", this.isGround);
+    }
 
     private void Flip()
     {
@@ -115,8 +118,7 @@ public class ImputMoveMent : MoveMent
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Plat"))
         {
             isJump = false;
-            //IsGround = true;
-            animator.SetBool("isGround", IsGround);
+            Grounding(true);
 
         }
     }
@@ -125,7 +127,7 @@ public class ImputMoveMent : MoveMent
     {
         if(collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Plat"))
         {
-            IsGround = true;
+            //IsGround = true;
 
             
         }
@@ -136,8 +138,7 @@ public class ImputMoveMent : MoveMent
     {
         if(collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Plat"))
         {
-            IsGround = false;
-            animator.SetBool("isGround", IsGround);
+            Grounding(false);
         }
     }
 
