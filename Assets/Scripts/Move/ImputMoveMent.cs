@@ -6,7 +6,7 @@ using UnityEngine;
 public class ImputMoveMent : MoveMent
 {
     [SerializeField] float moveInput;
-    [SerializeField] float JumpPower;
+    [SerializeField] float jumpPower;
     [SerializeField] bool isJump;
     [SerializeField] protected bool isRun;
 
@@ -22,7 +22,7 @@ public class ImputMoveMent : MoveMent
     {
         animator.SetFloat("YVelocity", rigid.velocity.y);
 
-        Jump();
+        //Jump();
         Move();
         ChangeDir();
         MoveAnimation();
@@ -33,15 +33,41 @@ public class ImputMoveMent : MoveMent
         moveInput = Input.GetAxisRaw("Horizontal");
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
         //isRun = moveInput != 0 ? isRun : !isRun;
-        if(moveInput != 0)
-        {
+
+        /*if(moveInput != 0)
             isRun = true;
-        }
         else
+            isRun = false;*/
+        
+
+        if(Input.GetKeyDown(KeyCode.UpArrow) && !isJump)
         {
-            isRun = false;
+                isJump = true;
+                Jump();
         }
     }
+
+    void Jump()
+    {
+        animator.SetTrigger("isJump");
+
+        rigid.velocity = new Vector3(rigid.velocity.x, 0);
+        rigid.AddForce(Vector2.up * jumpPower);
+    }
+
+    /*void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJump)
+        {
+            
+            isJump = true;
+
+            Vector3 dir = new Vector3(rigid.velocity.y, 0);
+            rigid.velocity = dir;
+            rigid.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+            animator.SetBool("Jumping", true);
+        }
+    }*/
 
     void ChangeDir()
     {
@@ -54,28 +80,18 @@ public class ImputMoveMent : MoveMent
     void MoveAnimation()
     {
 
-        bool Run = moveInput != 0;
+        isRun = moveInput != 0;
 
 
-        if (Run)
-            animator.SetBool("Run", Run);
+        if (isRun)
+            animator.SetBool("Run", isRun);
         else
-            animator.SetBool("Run", Run);
+            animator.SetBool("Run", isRun);
     }
 
-    void Jump()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJump)
-        {
-            
-            isJump = true;
+    
 
-            Vector3 dir = new Vector3(rigid.velocity.y, 0);
-            rigid.velocity = dir;
-            rigid.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
-            animator.SetBool("Jumping", true);
-        }
-    }
+    
 
 
     private void Flip()
@@ -99,6 +115,8 @@ public class ImputMoveMent : MoveMent
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Plat"))
         {
             isJump = false;
+            IsGround = true;
+            
         }
     }
 
@@ -108,7 +126,7 @@ public class ImputMoveMent : MoveMent
         {
             IsGround = true;
 
-            animator.SetBool("Jumping", false);
+            //animator.SetBool("Jumping", false);
         }
     }
 
