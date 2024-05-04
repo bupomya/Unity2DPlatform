@@ -10,7 +10,7 @@ public class ImputMoveMent : MoveMent
     [SerializeField] bool isJump;
     [SerializeField] protected bool isRun;
 
-    [SerializeField] private bool isGround = true;
+    [SerializeField] private bool isGround;
     public bool IsGround { get => isGround; set => isGround = value; }
 
     protected override void Awake()
@@ -115,8 +115,9 @@ public class ImputMoveMent : MoveMent
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Plat"))
         {
             isJump = false;
-            IsGround = true;
-            
+            //IsGround = true;
+            animator.SetBool("isGround", IsGround);
+
         }
     }
 
@@ -126,7 +127,7 @@ public class ImputMoveMent : MoveMent
         {
             IsGround = true;
 
-            //animator.SetBool("Jumping", false);
+            
         }
     }
 
@@ -136,7 +137,7 @@ public class ImputMoveMent : MoveMent
         if(collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Plat"))
         {
             IsGround = false;
-
+            animator.SetBool("isGround", IsGround);
         }
     }
 
