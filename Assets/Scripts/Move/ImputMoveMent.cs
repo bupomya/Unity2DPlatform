@@ -12,6 +12,7 @@ public class ImputMoveMent : MoveMent
     [SerializeField] protected bool isRun;
     [SerializeField] private bool isGround;
     public bool IsGround { get => isGround; set => isGround = value; }
+    
 
     protected override void Awake()
     {
