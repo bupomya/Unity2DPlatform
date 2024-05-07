@@ -13,14 +13,7 @@ public class PlayerParticleAnimation : ImputMoveMent
 
     void PlayParticle()
     {
-        if(isRun)
-        {
-            animator.SetBool("isRun", true);
-        }
-        else
-        {
-            animator.SetBool("isRun", false);
-        }
+
     }
 
 }

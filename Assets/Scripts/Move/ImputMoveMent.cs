@@ -8,8 +8,14 @@ public class ImputMoveMent : MoveMent
     [SerializeField] float moveInput;
     [SerializeField] float jumpPower;
 
-    [SerializeField] bool isJump;
-    [SerializeField] protected bool isRun;
+    [SerializeField] private LayerMask groundLayer; // ground 레이어
+
+    private bool jumpRequested; // 점프요청을 저장할 플래그
+    [SerializeField] int jumpCount; // 남은 점프 횟수
+    [SerializeField] int maxJumpCount; // 최대 점프 횟수
+    [SerializeField] Transform groundCheck; // groundcheck 위치
+    [SerializeField] float groundCheckRadius; //groundCheck 범위
+
     [SerializeField] private bool isGround;
     public bool IsGround { get => isGround; set => isGround = value; }
     
@@ -22,41 +28,45 @@ public class ImputMoveMent : MoveMent
     void Update()
     {
         animator.SetFloat("YVelocity", rigid.velocity.y);
-
+        IsGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        
         //Jump();
         Move();
         ChangeDir();
-        MoveAnimation();
+        
+        //MoveAnimation();
+    }
+    private void FixedUpdate()
+    {
+        if (jumpRequested)
+        {
+            rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
+            jumpCount--;
+            animator.SetTrigger("isJump");
+            //rigid.AddForce(Vector2.up * jumpPower);
+            jumpRequested = false;
+        }
     }
 
     protected override void Move()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
-        //isRun = moveInput != 0 ? isRun : !isRun;
+        animator.SetFloat("Run", Mathf.Abs(moveInput));
 
-        /*if(moveInput != 0)
-            isRun = true;
-        else
-            isRun = false;*/
-        
 
-        if(Input.GetKeyDown(KeyCode.UpArrow) && !isJump)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && jumpCount > 0)
         {
-                isJump = true;
-                Jump();
+                
+                jumpRequested = true;
         }
     }
 
-    void Jump()
+    /*void Jump()
     {
         Debug.Log("Jump");
-
-        animator.SetTrigger("isJump");
-
-        rigid.velocity = new Vector3(rigid.velocity.x, 0);
-        rigid.AddForce(Vector2.up * jumpPower);
-    }
+        
+    }*/
 
     /*void Jump()
     {
@@ -80,7 +90,7 @@ public class ImputMoveMent : MoveMent
         }
     }
 
-    void MoveAnimation()
+    /*void MoveAnimation()
     {
 
         isRun = moveInput != 0;
@@ -90,7 +100,7 @@ public class ImputMoveMent : MoveMent
             animator.SetBool("Run", isRun);
         else
             animator.SetBool("Run", isRun);
-    }
+    }*/
 
     void Grounding(bool isGround)
     {
@@ -107,6 +117,15 @@ public class ImputMoveMent : MoveMent
     }
 
 
+    void ResetJumpCount()
+    {
+        if (IsGround)
+        {
+            jumpCount = maxJumpCount;
+        }
+    }
+
+
 
     // OnTrigger 는 충돌하는 두 물체에 collider 컴포넌트가 존재하면서
     // 한개 이상의 colllider 컴포넌트에 isTrigger가 활성화 되이있어야함
@@ -118,8 +137,8 @@ public class ImputMoveMent : MoveMent
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Plat"))
         {
-            isJump = false;
             Grounding(true);
+            ResetJumpCount();
 
         }
     }
@@ -143,4 +162,9 @@ public class ImputMoveMent : MoveMent
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
 }
