@@ -6856,7 +6856,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 384
-  jumpCount: 2
+  jumpCount: 0
   maxJumpCount: 2
   groundCheck: {fileID: 815668413}
   groundCheckRadius: 0.2
