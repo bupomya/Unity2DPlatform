@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] float deg;
+    //[SerializeField] float deg;
 
     [SerializeField] GameObject bomb;
     [SerializeField] GameObject bombPos;
+
+    private InputMoveMent movement;
+
+    private void Awake()
+    {
+        movement = GetComponent<InputMoveMent>();
+    }
 
     void Start()
     {
@@ -21,6 +28,10 @@ public class PlayerAttack : MonoBehaviour
         {
             GameObject go = Instantiate(bomb);
             go.transform.position = bombPos.transform.position;
+
+
+            
+
         }
     }
 }

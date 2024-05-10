@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    Rigidbody2D rigid;
-    [SerializeField] float bulletSpeed;
-
-
-    [SerializeField] Transform playerTransform;
-    [SerializeField] float playerDir;
-
+    public Rigidbody2D rigid;
+    public float bulletSpeed;
+    InputMoveMent movement;
 
     private void Awake()
     {
-        playerTransform = GetComponentInParent<Transform>();
+        movement = GetComponent<InputMoveMent>();
     }
 
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        rigid.velocity = playerTransform.right * bulletSpeed;
+        if (movement.IsRight) // 
+            rigid.velocity = transform.position * bulletSpeed;
+        else
+            rigid.velocity = -transform.position * bulletSpeed;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

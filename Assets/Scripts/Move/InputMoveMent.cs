@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ImputMoveMent : MoveMent
+public class InputMoveMent : MoveMent
 {
     [SerializeField] float moveInput;
+
     [SerializeField] float jumpPower;
 
     [SerializeField] private LayerMask groundLayer; // ground ·¹ÀÌ¾î
