@@ -40,6 +40,13 @@ public class ImputMoveMent : MoveMent
             jumpCount = maxJumpCount;
 
         Move();
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && jumpCount > 0)
+        {
+            jumpRequested = true;
+            jumpCount--;
+        }
+
         ChangeDir();
     }
     private void FixedUpdate()
@@ -47,7 +54,7 @@ public class ImputMoveMent : MoveMent
         if (jumpRequested)
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
-            jumpCount--;
+            
             animator.SetTrigger("isJump");
             jumpRequested = false;
         }
@@ -59,10 +66,7 @@ public class ImputMoveMent : MoveMent
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
         animator.SetFloat("Run", Mathf.Abs(moveInput));
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && jumpCount > 0)
-        {
-            jumpRequested = true;
-        }
+        
     }
 
 
