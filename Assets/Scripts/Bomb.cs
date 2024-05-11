@@ -5,21 +5,33 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     public Rigidbody2D rigid;
-    public float bulletSpeed;
-    InputMoveMent movement;
+    public float bombSpeed;
 
     private void Awake()
     {
-        movement = GetComponent<InputMoveMent>();
+        rigid = GetComponent<Rigidbody2D>();
+    }
+
+    public void Init(bool isRight)
+    {
+        // AddForce
+        if (isRight)
+        {
+            rigid.AddForce(transform.forward * bombSpeed, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rigid.AddForce(-transform.forward * bombSpeed, ForceMode2D.Impulse);
+        }
     }
 
     void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        if (movement.IsRight) // 
-            rigid.velocity = transform.position * bulletSpeed;
-        else
-            rigid.velocity = -transform.position * bulletSpeed;
+        //if (movement.isright)
+        //    rigid.velocity = transform.position * bombSpeed;
+        //else
+        //    rigid.velocity = -transform.position * bombSpeed;
+        // 터질때는 overlap 사용해서
     }
 
 }

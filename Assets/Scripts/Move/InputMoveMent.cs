@@ -45,7 +45,6 @@ public class InputMoveMent : MoveMent
         if (Input.GetKeyDown(KeyCode.UpArrow) && jumpCount > 0)
         {
             jumpRequested = true;
-            jumpCount--;
         }
 
         ChangeDir();
@@ -55,7 +54,7 @@ public class InputMoveMent : MoveMent
         if (jumpRequested)
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
-            
+            jumpCount--; // FixedUpdate에서 처리 해야함 Update 에서 처리하면 컴퓨터 사양에 따라 frame이 달라서
             animator.SetTrigger("isJump");
             jumpRequested = false;
         }
@@ -64,6 +63,7 @@ public class InputMoveMent : MoveMent
     protected override void Move()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
+        moveDir = new Vector2(moveInput, 0);
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
         animator.SetFloat("Run", Mathf.Abs(moveInput));
 

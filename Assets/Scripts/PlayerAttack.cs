@@ -27,11 +27,7 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameObject go = Instantiate(bomb);
-            go.transform.position = bombPos.transform.position;
-
-
-            
-
+            go.GetComponent<Bomb>().Init(movement.IsRight);
         }
     }
 }

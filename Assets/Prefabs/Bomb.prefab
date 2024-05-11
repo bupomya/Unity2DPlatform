@@ -161,6 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fe4f1dcd4f5364aa5f05d1eb5a5aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
-  playerTransform: {fileID: 0}
-  playerDir: 0
+  bombSpeed: 10
