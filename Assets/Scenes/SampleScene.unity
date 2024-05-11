@@ -12854,7 +12854,7 @@ GameObject:
   - component: {fileID: 1427887911}
   - component: {fileID: 1427887910}
   m_Layer: 0
-  m_Name: Saw
+  m_Name: Glind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13106,7 +13106,7 @@ GameObject:
   - component: {fileID: 1743544790}
   - component: {fileID: 1743544789}
   m_Layer: 0
-  m_Name: Idle
+  m_Name: Spike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

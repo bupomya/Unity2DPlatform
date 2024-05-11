@@ -18,13 +18,13 @@ public class Bomb : MonoBehaviour
         // AddForce
         if (isRight)
         {
-            //rigid.AddForce(transform.forward * bombSpeed, ForceMode2D.Impulse);
-            rigid.velocity = transform.position * bombSpeed;
+            rigid.AddForce(new Vector2(-1,1) * bombSpeed, ForceMode2D.Impulse);
+            //rigid.velocity = transform.position * bombSpeed;
         }
         else
         {
-            //rigid.AddForce(-transform.forward * bombSpeed, ForceMode2D.Impulse);
-            rigid.velocity = -transform.position * bombSpeed;
+            rigid.AddForce(new Vector2(1, 1) * bombSpeed, ForceMode2D.Impulse);
+            //rigid.velocity = -transform.position * bombSpeed;
         }
     }
 
