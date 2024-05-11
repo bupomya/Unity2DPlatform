@@ -19,10 +19,16 @@ public class PlayerAttack : MonoBehaviour
     
     void Update()
     {
-        if (isSpace) // 누르고 있는 시간에 따라 멀리 날아가게
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            isSpace = true;
+        }
+
+        if (isSpace && Input.GetKeyUp(KeyCode.Space)) // 누르고 있는 시간에 따라 멀리 날아가게
         {
             GameObject go = Instantiate(Bomb,bombPos.transform.position, bombPos.transform.rotation);
             go.GetComponent<Bomb>().Init(movement.IsRight);
+            isSpace = false;
         }
     }
 }
