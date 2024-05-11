@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] GameObject Bomb;
     [SerializeField] GameObject bombPos;
+    [SerializeField] bool isSpace; // space 차징 시작 단계
 
     private InputMoveMent movement;
 
@@ -18,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // 누르고 있는 시간에 따라 멀리 날아가게
+        if (isSpace) // 누르고 있는 시간에 따라 멀리 날아가게
         {
             GameObject go = Instantiate(Bomb,bombPos.transform.position, bombPos.transform.rotation);
             go.GetComponent<Bomb>().Init(movement.IsRight);
