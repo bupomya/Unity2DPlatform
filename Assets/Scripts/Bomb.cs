@@ -6,6 +6,7 @@ public class Bomb : MonoBehaviour
 {
     public Rigidbody2D rigid;
     public float bombSpeed;
+    [SerializeField] float damage;
 
     private void Awake()
     {
@@ -17,11 +18,13 @@ public class Bomb : MonoBehaviour
         // AddForce
         if (isRight)
         {
-            rigid.AddForce(transform.forward * bombSpeed, ForceMode2D.Impulse);
+            //rigid.AddForce(transform.forward * bombSpeed, ForceMode2D.Impulse);
+            rigid.velocity = transform.position * bombSpeed;
         }
         else
         {
-            rigid.AddForce(-transform.forward * bombSpeed, ForceMode2D.Impulse);
+            //rigid.AddForce(-transform.forward * bombSpeed, ForceMode2D.Impulse);
+            rigid.velocity = -transform.position * bombSpeed;
         }
     }
 

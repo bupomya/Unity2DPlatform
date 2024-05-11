@@ -135,7 +135,7 @@ GameObject:
   m_Layer: 3
   m_Name: BombPosition
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -6991,7 +6991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd12671bec40cc34f8ff1d5f2639ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bomb: {fileID: 8733063820271554265, guid: 835fb037ed9e25a469af4c8c1dbf14a8, type: 3}
+  Bomb: {fileID: 8733063820271554265, guid: 835fb037ed9e25a469af4c8c1dbf14a8, type: 3}
   bombPos: {fileID: 8702026}
 --- !u!1 &702372507
 GameObject:

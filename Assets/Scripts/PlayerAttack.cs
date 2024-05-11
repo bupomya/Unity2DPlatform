@@ -6,7 +6,7 @@ public class PlayerAttack : MonoBehaviour
 {
     //[SerializeField] float deg;
 
-    [SerializeField] GameObject bomb;
+    [SerializeField] GameObject Bomb;
     [SerializeField] GameObject bombPos;
 
     private InputMoveMent movement;
@@ -15,19 +15,14 @@ public class PlayerAttack : MonoBehaviour
     {
         movement = GetComponent<InputMoveMent>();
     }
-
-    void Start()
-    {
-        
-    }
-
     
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject go = Instantiate(bomb);
+            GameObject go = Instantiate(Bomb,bombPos.transform.position, bombPos.transform.rotation);
             go.GetComponent<Bomb>().Init(movement.IsRight);
+
         }
     }
 }

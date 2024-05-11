@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 861759786957093686}
   - component: {fileID: 3930142441233848180}
   - component: {fileID: -1937001573074260350}
+  - component: {fileID: 7502069705656142209}
   - component: {fileID: -2388585717889672160}
   - component: {fileID: 1806919205388774894}
   m_Layer: 0
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8733063820271554265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.442654, y: -13.942053, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -114,6 +115,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &7502069705656142209
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8733063820271554265}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!58 &-2388585717889672160
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -161,4 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fe4f1dcd4f5364aa5f05d1eb5a5aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombSpeed: 10
+  rigid: {fileID: -1937001573074260350}
+  bombSpeed: 1
+  damage: 0
