@@ -10,6 +10,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject bombPos;
     [SerializeField] bool isSpace; // space 차징 시작 단계
 
+    Bomb bomb;
+
     private InputMoveMent movement;
 
     private void Awake()
@@ -27,8 +29,17 @@ public class PlayerAttack : MonoBehaviour
         if (isSpace && Input.GetKeyUp(KeyCode.Space)) // 누르고 있는 시간에 따라 멀리 날아가게
         {
             GameObject go = Instantiate(Bomb,bombPos.transform.position, bombPos.transform.rotation);
-            go.GetComponent<Bomb>().Init(movement.IsRight);
+            bomb = go.GetComponent<Bomb>();
+            bomb.Init(movement.IsRight);
             isSpace = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isSpace && bomb.bombSpeed < bomb.maxBombSpeed)
+        {
+            bomb.bombSpeed += Time.deltaTime * bomb.bombSpeed;
         }
     }
 }

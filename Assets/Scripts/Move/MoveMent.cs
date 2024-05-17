@@ -11,7 +11,7 @@ public abstract class MoveMent : MonoBehaviour
     protected Animator animator;
 
     // 바라보는 방향 체크
-    private bool isRight;
+    [SerializeField] private bool isRight;
     public bool IsRight { get => isRight; set => isRight = value; }
 
     //이동 방향

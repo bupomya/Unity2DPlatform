@@ -184,5 +184,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: -1937001573074260350}
-  bombSpeed: 5
+  bombSpeed: 0
+  maxBombSpeed: 5
   damage: 0
