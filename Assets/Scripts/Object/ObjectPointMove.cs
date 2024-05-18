@@ -28,7 +28,6 @@ public class ObjectPointMove : MoveMent
             else
             {
                 curTurnPointIdx--;
-                IsRight = false;
             }
         }
     }

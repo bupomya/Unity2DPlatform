@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     public Rigidbody2D rigid;
-    public float bombSpeed;
+    public float bombSpeed = 10;
     public float maxBombSpeed;
     [SerializeField] float damage;
 
@@ -14,7 +14,7 @@ public class Bomb : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(bool isRight)
+    public void Init(bool isRight, float bombSpeed)
     {
         // AddForce
         if (isRight)

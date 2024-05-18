@@ -1,6 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/*[Serializable]
+public struct BombInfo
+{
+    public bool isRight;
+    public float speed;
+    public float maxSpeed;
+} 
+*/
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -8,9 +18,13 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] GameObject Bomb;
     [SerializeField] GameObject bombPos;
-    [SerializeField] bool isSpace; // space 차징 시작 단계
+    [SerializeField] bool isSpace; // space 차징 시작
 
-    Bomb bomb;
+    //public BombInfo bombInfo; // 참조형, 비참조형
+
+    [SerializeField] float addSpeed;
+    float bombSpeed = 0f;
+    [SerializeField] private float maxBombSpeed;
 
     private InputMoveMent movement;
 
@@ -24,22 +38,28 @@ public class PlayerAttack : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             isSpace = true;
+            Debug.Log($"start : {bombSpeed}");
         }
 
         if (isSpace && Input.GetKeyUp(KeyCode.Space)) // 누르고 있는 시간에 따라 멀리 날아가게
         {
-            GameObject go = Instantiate(Bomb,bombPos.transform.position, bombPos.transform.rotation);
-            bomb = go.GetComponent<Bomb>();
-            bomb.Init(movement.IsRight);
+            Debug.Log($"end : {bombSpeed}");
+
+            //bombInfo.isRight = movement.IsRight;
+
+            GameObject bomb = Instantiate(Bomb,bombPos.transform.position, bombPos.transform.rotation);
+            bomb.GetComponent<Bomb>().Init(movement.IsRight, bombSpeed);
+            bombSpeed = 0f;
             isSpace = false;
         }
     }
 
     private void FixedUpdate()
     {
-        if (isSpace && bomb.bombSpeed < bomb.maxBombSpeed)
+        if (isSpace && bombSpeed < maxBombSpeed)
         {
-            bomb.bombSpeed += Time.deltaTime * bomb.bombSpeed;
+            bombSpeed += (Time.fixedDeltaTime * addSpeed);
+            Debug.Log($"process : {bombSpeed}");
         }
     }
 }

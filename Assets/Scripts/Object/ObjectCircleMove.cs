@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ObjectCircleMove : MonoBehaviour
 {
-    [SerializeField] float deg;
+    [SerializeField] float angle;
     [SerializeField] float objcetSpeed;
     [SerializeField] GameObject spike;
     
     void Update()
     {
-        deg = deg + Time.deltaTime * objcetSpeed;
-        float rad = deg * Mathf.Deg2Rad;
+        angle = angle + Time.deltaTime * objcetSpeed;
+        float rad = angle * Mathf.Deg2Rad;
         spike.transform.localPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-        spike.transform.eulerAngles = new Vector3(0, 0, deg);
+        spike.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 }
