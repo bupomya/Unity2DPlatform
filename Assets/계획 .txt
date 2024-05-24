@@ -1,0 +1,23 @@
+1. Big Guy ( 파란 해적)
+	ㄴ 폭탄 집어던짐 Pick(Bomb), Idle(Bomb), Run(Bomb), Throw(Bomb)
+	ㄴ 근접공격 (Attack)
+
+2. Bald pirate (빨간 해적)
+	ㄴ 폭탄을 발로 걷어참 (Attack)
+	ㄴ 근접공격 (Attack)
+
+3. Captiain (모자 해적)
+	ㄴ 폭탄을 보면 반대방향으로 도망감, 벽에 닿으면 방향을 바꿈
+	ㄴ 근접공격 (손짓)
+
+4. Cucumber (오이)
+	ㄴ 폭탄의 불을 끔(Blow the wick)
+	ㄴ 근접공격 ( Attack )
+
+5. Whale (고래)
+	ㄴ 폭탄 먹음 (Swalow)
+	ㄴ 근접공격 ( Attack)
+
+6. BlueBird (파랑새)
+	ㄴ 특정 지점을 따라 이동
+	ㄴ 폭탄에 맞고 생존시 맞은 위치로 되돌아옴

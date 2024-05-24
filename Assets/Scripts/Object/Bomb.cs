@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public Rigidbody2D rigid;
+    Rigidbody2D rigid;
+    Animator animator;
+
     public float bombSpeed = 10;
     public float maxBombSpeed;
     [SerializeField] float damage;
 
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     public void Init(bool isRight, float bombSpeed)
