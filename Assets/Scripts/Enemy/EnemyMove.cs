@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyMove : MoveMent
 {
-
     private void Update()
     {
         Move();
@@ -16,12 +15,16 @@ public class EnemyMove : MoveMent
 
     protected override void Move()
     {
+        //Invoke("RandomMove", 2f);
         transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+
     }
 
     void ChangeDir()
     {
         moveDir.x *= -1;
-        transform.position = new Vector2(moveDir.x, 0);
+        transform.localScale = new Vector2(moveDir.x, 1);
     }
+
+
 }
