@@ -1,30 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EnemyMove : MoveMent
 {
-    private void Update()
+    [SerializeField] int nextMove;
+    [SerializeField] float enemyMoveTime;
+
+    private void Awake()
+    {
+        base.Awake();
+        Invoke("Think", enemyMoveTime);
+    }
+
+    private void FixedUpdate()
     {
         Move();
-        if(Input.GetKeyDown(KeyCode.Backspace))
-        {
-            ChangeDir();
-        }
     }
 
     protected override void Move()
     {
-        //Invoke("RandomMove", 2f);
-        transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+        //Move
+        rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
 
+        //Platform Check
+        Vector2 frontVec = new Vector2(rigid.position.x + nextMove, rigid.position.y);
+        Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
+
+        RaycastHit2D hit = Physics2D.Raycast(frontVec, Vector3.down, 2);
+        //, LayerMask.GetMask("TurnPoint")
+
+        if (hit.collider != null && hit.collider.CompareTag("TurnPoint"))
+        {
+            Turn();
+        }
     }
 
-    void ChangeDir()
+    private void Flip()
     {
-        moveDir.x *= -1;
-        transform.localScale = new Vector2(moveDir.x, 1);
+        Vector3 EnemyScale = transform.localScale;
+        EnemyScale.x *= -1; 
+        transform.localScale = EnemyScale; 
+        IsRight = !IsRight;
+        MoveDir *= -1;
     }
 
+    private void Turn()
+    {
+        nextMove *= -1;
+        //spriteRenderer.flipX = nextMove == 1;
+        Flip();
+
+        CancelInvoke();
+        Invoke("Think", enemyMoveTime);
+    }
+
+    void Think()
+    {
+        //nextMove = Random.Range(-1, 2);
+
+        
+        animator.SetInteger("isRun", nextMove);    
+
+        Invoke("Think", enemyMoveTime);
+    }
 
 }

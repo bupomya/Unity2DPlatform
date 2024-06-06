@@ -6,7 +6,7 @@ using static UnityEditor.Progress;
 public abstract class MoveMent : MonoBehaviour
 {
     // SpriteRenderer, Rigidbody2D, Animator 컴포넌트
-    protected SpriteRenderer SpriteRenderer;
+    protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rigid;
     protected Animator animator;
 
@@ -15,14 +15,14 @@ public abstract class MoveMent : MonoBehaviour
     public bool IsRight { get => isRight; set => isRight = value; }
 
     //이동 방향
-    [SerializeField] protected Vector2 moveDir;
+    [SerializeField] private Vector2 moveDir;
     public Vector2 MoveDir { get => moveDir; set => moveDir = value; }
 
     [SerializeField] protected float moveSpeed;
 
      protected virtual void Awake()
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }

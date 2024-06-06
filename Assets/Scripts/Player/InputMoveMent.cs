@@ -63,7 +63,7 @@ public class InputMoveMent : MoveMent
     protected override void Move()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-        moveDir = new Vector2(moveInput, 0);
+        MoveDir = new Vector2(moveInput, 0);
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
         animator.SetFloat("Run", Mathf.Abs(moveInput));
 
