@@ -11,7 +11,6 @@ public class Bomb : MonoBehaviour
     public float maxBombSpeed;
     [SerializeField] float damage;
 
-
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
