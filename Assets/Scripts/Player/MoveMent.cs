@@ -27,6 +27,8 @@ public abstract class MoveMent : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+
+
     // 추상 메소드 (상속 받은 곳에서 반드시 처리해야함)
     protected abstract void Move();
 }

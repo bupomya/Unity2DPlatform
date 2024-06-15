@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,12 +28,23 @@ public class PlayerHit : Health
         if (isHit)
         {
             SetHp(damage);
+            StartCoroutine(IsKnockBack());
             animator.SetTrigger("Hit");
-            isHit = false;
+            
         }
     }
 
+    IEnumerator IsKnockBack()
+    {
+        KnockBack();
+        yield return new WaitForSeconds(1f);
+        isHit = false;
+    }
 
+    private void KnockBack()
+    {
+        //넉백 기능 구현
+    }
 
     protected override void Die()
     {
