@@ -14,12 +14,16 @@ public class InputMoveMent : MoveMent
     private bool jumpRequested; // 점프요청을 저장할 플래그
     [SerializeField] int jumpCount; // 남은 점프 횟수
     [SerializeField] int maxJumpCount; // 최대 점프 횟수
-    [SerializeField] Transform groundCheck; // groundcheck 위치
+    [SerializeField] Transform groundCheckRight; // groundcheck 위치
+    [SerializeField] Transform groundCheckLeft; // groundcheck 위치
     [SerializeField] float groundCheckRadius; //groundCheck 범위
 
     [SerializeField] private bool isGround;
+
+    [SerializeField] PlayerHit playerHit;
+
     public bool IsGround { get => isGround; set => isGround = value; }
-    
+
 
     protected override void Awake()
     {
@@ -35,19 +39,22 @@ public class InputMoveMent : MoveMent
     {
         animator.SetFloat("YVelocity", rigid.velocity.y);
         animator.SetBool("isGround", IsGround);
-        IsGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        IsGround = Physics2D.OverlapCircle(groundCheckRight.position, groundCheckRadius, groundLayer) || Physics2D.OverlapCircle(groundCheckLeft.position, groundCheckRadius, groundLayer);
 
-        if (IsGround)
-            jumpCount = maxJumpCount;
-
-        Move();
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) && jumpCount > 0)
+        if (!playerHit.isHit)
         {
-            jumpRequested = true;
-        }
+            if (IsGround)
+                jumpCount = maxJumpCount;
 
-        ChangeDir();
+            Move();
+
+            if (Input.GetKeyDown(KeyCode.UpArrow) && jumpCount > 0)
+            {
+                jumpRequested = true;
+            }
+
+            ChangeDir();
+        }
     }
     private void FixedUpdate()
     {
@@ -67,7 +74,7 @@ public class InputMoveMent : MoveMent
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
         animator.SetFloat("Run", Mathf.Abs(moveInput));
 
-        
+
     }
 
 
@@ -90,6 +97,7 @@ public class InputMoveMent : MoveMent
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(groundCheckRight.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(groundCheckLeft.position, groundCheckRadius);
     }
 }

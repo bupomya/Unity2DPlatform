@@ -4,25 +4,31 @@ using UnityEngine;
 
 public abstract class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] float damage;
-    [SerializeField] protected Transform attackPos;
-    [SerializeField] protected BoxCollider2D attackCollider;
-    protected Animator animator;
+    public float damage;
 
+    [SerializeField] protected Transform attackPos;
+    public bool isAttack;
+    [SerializeField] protected float attackCheckRadius;
+    [SerializeField] LayerMask attackLayer;
+
+    protected Animator animator;
 
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    protected void ObjectCheck()
+    protected virtual void Update()
     {
-        //Platform Check
-        /*Vector2 frontVec = new Vector2(attackPos.position.x, attackPos.position.y);
-        Debug.DrawRay(frontVec, Vector3.down, new Color(1,1,1));
-
-        RaycastHit2D hit = Physics2D.Raycast(frontVec, Vector3.down, 2);*/
+        isAttack = Physics2D.OverlapCircle(attackPos.position, attackCheckRadius, attackLayer);
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackCheckRadius);
+    }
+
 
     protected abstract void Attack();
 }

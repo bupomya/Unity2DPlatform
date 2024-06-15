@@ -7,6 +7,7 @@ public class EnemyMove : MoveMent
 {
     [SerializeField] int nextMove;
     [SerializeField] float enemyMoveTime;
+    [SerializeField] EnemyAttack enemyAttack;
 
     private void Awake()
     {
@@ -21,27 +22,30 @@ public class EnemyMove : MoveMent
 
     protected override void Move()
     {
-        //Move
-        rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
-
-        //Platform Check
-        Vector2 frontVec = new Vector2(rigid.position.x + nextMove, rigid.position.y);
-        Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-
-        RaycastHit2D hit = Physics2D.Raycast(frontVec, Vector3.down, 2);
-        //, LayerMask.GetMask("TurnPoint")
-
-        if (hit.collider != null && hit.collider.CompareTag("TurnPoint"))
+        if (!enemyAttack.isAttack)
         {
-            Turn();
+            //Move
+            rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
+
+            //Platform Check
+            Vector2 frontVec = new Vector2(rigid.position.x + nextMove, rigid.position.y);
+            Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
+
+            RaycastHit2D hit = Physics2D.Raycast(frontVec, Vector3.down, 2);
+            //, LayerMask.GetMask("TurnPoint")
+
+            if (hit.collider != null && hit.collider.CompareTag("TurnPoint"))
+            {
+                Turn();
+            }
         }
     }
 
     private void Flip()
     {
         Vector3 EnemyScale = transform.localScale;
-        EnemyScale.x *= -1; 
-        transform.localScale = EnemyScale; 
+        EnemyScale.x *= -1;
+        transform.localScale = EnemyScale;
         IsRight = !IsRight;
         MoveDir *= -1;
     }
@@ -60,8 +64,8 @@ public class EnemyMove : MoveMent
     {
         //nextMove = Random.Range(-1, 2);
 
-        
-        animator.SetInteger("isRun", nextMove);    
+
+        animator.SetInteger("isRun", nextMove);
 
         Invoke("Think", enemyMoveTime);
     }

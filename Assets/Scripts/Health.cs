@@ -2,23 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public abstract class Health : MonoBehaviour
 {
     [SerializeField] protected int hp;
+    [SerializeField] protected Animator animator;
 
-
-    public void hit(int damage)
+    protected virtual void Awake()
     {
-        hp -= damage;
-
-        if(hp <= 0)
-        {
-            Die();
-        }
+        animator = GetComponent<Animator>();
     }
 
-    private void Die()
+    public void SetHp(int damage)
     {
-        //die animation
+        hp += damage;
     }
+
+    protected abstract void Die();
+    
 }

@@ -4,28 +4,39 @@ using UnityEngine;
 
 public class PlayerHit : Health
 {
-    [SerializeField] float knockbackForce;// 힘
-    [SerializeField] float knockbackDuration;// 지속시간
-    [SerializeField] float knockbackTimer;// 타이머
-    [SerializeField] bool isKnockback; // 상태체크
-    
-    // Update is called once per frame
-    void Update()
-    {
-        if (isKnockback)
-        {
-            
-            knockbackTimer -= Time.deltaTime;
+    public bool isHit;
 
-            if(knockbackTimer <= 0)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyAttack"))
+        {
+            if (hp > 0)
             {
-                isKnockback = false;
+                isHit = true;
+                PlayerIsHit((int)collision.gameObject.GetComponentInParent<EnemyAttack>().damage);
+            }
+            else
+            {
+                Die();
             }
         }
     }
 
-    public void TakeDamage(Vector2 direction)
+    void PlayerIsHit(int damage)
     {
-        
+        if (isHit)
+        {
+            SetHp(damage);
+            animator.SetTrigger("Hit");
+            isHit = false;
+        }
+    }
+
+
+
+    protected override void Die()
+    {
+        animator.SetTrigger("Die");
+        //게임 다시 시작 UI
     }
 }
