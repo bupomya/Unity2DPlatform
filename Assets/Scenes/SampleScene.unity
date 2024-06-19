@@ -41363,6 +41363,9 @@ MonoBehaviour:
   hp: 3
   animator: {fileID: 0}
   isHit: 0
+  knockbackPower: 3
+  knockbackDuration: 1
+  knockbackCounter: 1
 --- !u!1 &695313554
 GameObject:
   m_ObjectHideFlags: 0

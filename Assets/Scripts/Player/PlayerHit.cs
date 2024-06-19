@@ -7,6 +7,18 @@ public class PlayerHit : Health
 {
     public bool isHit;
 
+    [SerializeField] float knockbackPower;
+    [SerializeField] float knockbackDuration;
+    [SerializeField] float knockbackCounter;
+
+    private void Update()
+    {
+        if (isHit && knockbackCounter > 0) 
+        {
+            knockbackCounter -= Time.deltaTime;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyAttack"))
@@ -15,9 +27,16 @@ public class PlayerHit : Health
             {
                 isHit = true;
                 PlayerIsHit((int)collision.gameObject.GetComponentInParent<EnemyAttack>().damage);
+
+                Vector2 knockbackDir = (transform.position - collision.transform.position).normalized; // 방향 계산
+
+                GetComponent<Rigidbody2D>().AddForce(knockbackDir * knockbackPower, ForceMode2D.Impulse);
+
+                StartCoroutine(IsKnockBack());
             }
             else
             {
+                //isHit = true;
                 Die();
             }
         }
@@ -28,7 +47,6 @@ public class PlayerHit : Health
         if (isHit)
         {
             SetHp(damage);
-            StartCoroutine(IsKnockBack());
             animator.SetTrigger("Hit");
             
         }
@@ -36,14 +54,12 @@ public class PlayerHit : Health
 
     IEnumerator IsKnockBack()
     {
-        KnockBack();
-        yield return new WaitForSeconds(1f);
-        isHit = false;
-    }
 
-    private void KnockBack()
-    {
-        //넉백 기능 구현
+        knockbackCounter = knockbackDuration;
+
+        yield return new WaitForSeconds(1f);
+
+        isHit = false;
     }
 
     protected override void Die()
