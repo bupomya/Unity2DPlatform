@@ -7,8 +7,8 @@ public class Bomb : MonoBehaviour
     Rigidbody2D rigid;
     Animator animator;
 
-    public float bombSpeed = 10;
-    public float maxBombSpeed;
+    [SerializeField] float bombSpeed;
+    [SerializeField] float addSpeed;
     [SerializeField] float damage;
 
     private void Awake()
@@ -27,6 +27,16 @@ public class Bomb : MonoBehaviour
         else
         {
             rigid.AddForce(new Vector2(1, 1) * bombSpeed, ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("EnemyAttack"))
+        {
+            Vector2 knockbackDir = (transform.position - collision.transform.position).normalized; // 방향 계산
+
+            rigid.AddForce(new Vector2(knockbackDir.x,1) * bombSpeed * addSpeed, ForceMode2D.Impulse);
         }
     }
 
