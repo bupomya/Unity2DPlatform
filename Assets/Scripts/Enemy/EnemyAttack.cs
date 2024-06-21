@@ -10,6 +10,7 @@ public abstract class EnemyAttack : MonoBehaviour
     public bool isAttack;
     [SerializeField] protected float attackCheckRadius;
     [SerializeField] LayerMask attackLayer;
+    
 
     protected Animator animator;
 
