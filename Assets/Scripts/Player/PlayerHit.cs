@@ -8,6 +8,7 @@ public class PlayerHit : Health
     public bool isHit;
 
     [SerializeField] float knockbackPower;
+    [SerializeField] float knockbackAddPower;
     [SerializeField] float knockbackDuration;
     [SerializeField] float knockbackCounter;
 
@@ -30,7 +31,7 @@ public class PlayerHit : Health
 
                 Vector2 knockbackDir = (transform.position - collision.transform.position).normalized; // 방향 계산
 
-                GetComponent<Rigidbody2D>().AddForce(knockbackDir * knockbackPower, ForceMode2D.Impulse);
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(knockbackDir.x,1) * knockbackPower * knockbackAddPower, ForceMode2D.Impulse);
 
                 StartCoroutine(IsKnockBack());
             }
