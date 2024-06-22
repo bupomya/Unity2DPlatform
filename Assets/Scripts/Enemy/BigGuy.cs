@@ -21,6 +21,8 @@ public class BigGuy : EnemyAttack
 
     protected override void Attack()
     {
+
         animator.SetTrigger("Attack");
+
     }
 }

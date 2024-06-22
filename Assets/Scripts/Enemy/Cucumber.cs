@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaldPirate : EnemyAttack
+public class Cucumber : EnemyAttack
 {
-    
+
     private void Awake()
     {
         base.Awake();
@@ -23,7 +23,6 @@ public class BaldPirate : EnemyAttack
     {
 
 
-        animator.SetBool("isAttack",isAttack);
+        animator.SetTrigger("Attack");
     }
-
 }
