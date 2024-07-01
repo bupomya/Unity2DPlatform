@@ -13,17 +13,24 @@ public class BaldPirate : EnemyAttack
     private void Update()
     {
         base.Update();
-        if (isAttack)
-        {
-            Attack();
-        }
     }
 
     protected override void Attack()
     {
+        animator.SetTrigger("Attack");
+        Invoke("SetIsAttack", 1f);
+    }
 
+    protected override void BombAttack(Collider2D hitCollider)
+    {
+        animator.SetTrigger("Attack");
+        Invoke("SetIsAttack", 1f);
+    }
 
-        animator.SetBool("isAttack",isAttack);
+    void SetIsAttack()
+    {
+        if (isAttack) isAttack = false;
+        if (isPickBomb) isPickBomb = false;
     }
 
 }

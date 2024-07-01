@@ -22,7 +22,7 @@ public class EnemyMove : MoveMent
 
     protected override void Move()
     {
-        if (!enemyAttack.isAttack)
+        if (!enemyAttack.isAttack && !enemyAttack.isPickBomb)
         {
             //Move
             rigid.velocity = new Vector2(nextMove, rigid.velocity.y);

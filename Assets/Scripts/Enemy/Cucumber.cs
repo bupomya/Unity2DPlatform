@@ -13,16 +13,17 @@ public class Cucumber : EnemyAttack
     private void Update()
     {
         base.Update();
-        if (isAttack)
-        {
-            Attack();
-        }
     }
 
     protected override void Attack()
     {
 
 
+        
+    }
+
+    protected override void BombAttack(Collider2D hitCollider)
+    {
         animator.SetTrigger("Attack");
     }
 }

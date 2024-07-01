@@ -9,12 +9,14 @@ public abstract class EnemyAttack : MonoBehaviour
     public float damage;
 
     [SerializeField] protected Transform attackPos;
+
     public bool isAttack;
-    [SerializeField] protected bool isPick;
+    public bool isPickBomb;
 
     [SerializeField] protected float attackCheckRadius;
     [SerializeField] protected LayerMask attackLayer;
-    
+
+    [SerializeField] protected float ActionTime;
 
     protected Animator animator;
 
@@ -23,15 +25,15 @@ public abstract class EnemyAttack : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+
     protected virtual void Update()
     {
-        isAttack = Physics2D.OverlapCircle(attackPos.position, attackCheckRadius, attackLayer);
-        
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(attackPos.position, attackCheckRadius, attackLayer);
+        ColliderCheck(hitColliders);
     }
 
-    void ColliderCheck()
+    protected void ColliderCheck(Collider2D[] hitColliders)
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(attackPos.position, attackCheckRadius, attackLayer);
 
         // 충돌체 체크
         foreach (var hitCollider in hitColliders)
@@ -39,13 +41,14 @@ public abstract class EnemyAttack : MonoBehaviour
             // 충돌된 게임오브젝트가 플레이어면
             if (hitCollider.CompareTag("Bomb"))
             {
-
-
+                isPickBomb = true;
+                BombAttack(hitCollider);
                 break;
             }
             else if (hitCollider.CompareTag("Player"))
             {
-
+                isAttack = true;
+                Attack();
                 break;
             }
         }
@@ -59,4 +62,5 @@ public abstract class EnemyAttack : MonoBehaviour
 
 
     protected abstract void Attack();
+    protected abstract void BombAttack(Collider2D hitCollider);
 }
